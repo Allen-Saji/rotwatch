@@ -1,0 +1,22 @@
+{
+  "name": "rotwatch",
+  "version": "0.1.0",
+  "description": "Detect stale CLI commands in agent skill files and draft preserve-intent fixes.",
+  "type": "module",
+  "bin": {
+    "rotwatch": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "scan": "tsx src/cli.ts scan",
+    "test": "node --import tsx --test test/**/*.test.ts",
+    "test:unit": "node --import tsx --test test/**/*.test.ts"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  }
+}
