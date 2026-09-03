@@ -36,6 +36,30 @@ Every finding is classified so a fix is never guessed:
 A replacement is only proposed when it can be shown to accept the same argument
 shape; otherwise the finding is marked **NEEDS OPERATOR REVIEW**.
 
+A real audit of a 112-skill directory (168 files, 226 commands, 13 binaries,
+5 seconds) produced [one genuine break, twenty undocumented-alias warnings,
+and zero confident false positives](docs/example-report.md).
+
+## When to run it
+
+- After every CLI upgrade (`anchor`, `solana`, `npm`, `cargo`, ...). Upgrading
+  the tool is what invalidates the skill text.
+- Periodically on your whole skills directory - a weekly or daily pass is cheap
+  (the audit above took 5 seconds) and catches the drift you didn't notice.
+
+Skill files and installed binaries run on two different clocks. The skill text
+is a frozen local snapshot; the binaries move every time you update a toolchain.
+Rotwatch audits the gap between those clocks.
+
+## Why not just reinstall the skills?
+
+Reinstalling gets you text that is new, not text that is correct for your
+machine. A freshly reinstalled skill was written against the *author's* CLI
+versions, not yours - your `anchor` may be 1.0.2 where theirs was 0.29, your
+`curl` may have a different help surface, your `cargo` may carry plugin
+subcommands theirs didn't. The installed binary is the only ground truth,
+which is exactly what Rotwatch resolves against.
+
 ## Safety model
 
 - Detection and drafting are strictly read-only.
